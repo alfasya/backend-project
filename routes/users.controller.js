@@ -53,8 +53,14 @@ async function getUserById(req, res) {
 async function addUser(req, res) {
     const { username } = req.body;
     try {
+        const result = await pool.query(
+            `INSERT INTO users (username) VALUES ($1) RETURNING *`,
+            [username]
+        );
+
         res.status(201).json({
             message : `User added successfully.`,
+            data : result.rows[0],
         });
     } catch(err) {
         console.error(err);
