@@ -4,6 +4,15 @@ async function getAllUsers(req, res) {
     });
 }
 
+async function getUserById(req, res) {
+    const { id } = req.params;
+
+    res.status(200).json({
+        message : `Retrieving user with id: ${id}`,
+    });
+}
+
 module.exports = {
     getAllUsers,
+    getUserById,
 }

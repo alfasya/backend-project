@@ -8,3 +8,11 @@ describe('GET all users', () => {
         expect(result.statusCode).toBe(200);
     });
 });
+
+describe('GET user by id', () => {
+    test('GET /users should return status code: 200', async () => {
+        const result = await request(app).get('/users/:id');
+
+        expect(result.statusCode).toBe(200);
+    });
+});
