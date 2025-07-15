@@ -12,7 +12,16 @@ async function getUserById(req, res) {
     });
 }
 
+async function addUser(req, res) {
+    const { username } = req.body;
+
+    res.status(201).json({
+        message : `User added successfully.`,
+    });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
+    addUser,
 }
