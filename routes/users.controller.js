@@ -20,8 +20,18 @@ async function addUser(req, res) {
     });
 }
 
+async function updateUser(req, res) {
+    const { id } = req.params;
+    const { username } = req.body;
+
+    res.status(200).json({
+        message : `User with id ${id} updated succesfully.`,
+    });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     addUser,
+    updateUser,
 }

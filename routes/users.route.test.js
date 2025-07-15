@@ -28,3 +28,15 @@ describe('POST add user', () => {
         expect(result.statusCode).toBe(201);
     });
 });
+
+describe('PUT update user', () => {
+    test('PUT /users should return status code: 200', async () => {
+        const result = await request(app)
+            .put('/users/:id')
+            .send({
+                username : "username"
+            });
+
+        expect(result.statusCode).toBe(200);
+    });
+});
