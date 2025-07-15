@@ -29,9 +29,18 @@ async function updateUser(req, res) {
     });
 }
 
+async function deleteUser(req, res) {
+    const { id } = req.params;
+
+    res.status(200).json({
+        message : `User with id ${id} deleted succesfully.`,
+    });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     addUser,
     updateUser,
+    deleteUser,
 }

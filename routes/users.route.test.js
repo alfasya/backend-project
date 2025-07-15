@@ -10,7 +10,7 @@ describe('GET all users', () => {
 });
 
 describe('GET user by id', () => {
-    test('GET /users should return status code: 200', async () => {
+    test('GET /users/:id should return status code: 200', async () => {
         const result = await request(app).get('/users/:id');
 
         expect(result.statusCode).toBe(200);
@@ -30,12 +30,21 @@ describe('POST add user', () => {
 });
 
 describe('PUT update user', () => {
-    test('PUT /users should return status code: 200', async () => {
+    test('PUT /users/:id should return status code: 200', async () => {
         const result = await request(app)
             .put('/users/:id')
             .send({
                 username : "username"
             });
+
+        expect(result.statusCode).toBe(200);
+    });
+});
+
+describe('DELETE user', () => {
+    test('DELETE /users/:id should return status code: 200', async () => {
+        const result = await request(app)
+            .delete('/users/:id')
 
         expect(result.statusCode).toBe(200);
     });
