@@ -1,7 +1,20 @@
+const pool = require('../models/users.model');
+
 async function getAllUsers(req, res) {
     try {
+        const result = await pool.query(
+            `SELECT * FROM users`
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message : 'User not found.'
+            });
+        }
+
         res.status(200).json({
             message : 'Retrieving all users.',
+            data : result.rows,
         });
     } catch(err) {
         console.error(err);
