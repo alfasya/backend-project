@@ -102,6 +102,17 @@ async function deleteUser(req, res) {
     const { id } = req.params;
 
     try {
+         const result = await pool.query(
+            `DELETE from users WHERE id = $1 RETURNING *`,
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            res.status(404).json({
+                message : 'User not found.',
+            });
+        }
+        
         res.status(200).json({
             message : `User with id ${id} deleted succesfully.`,
         });
