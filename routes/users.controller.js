@@ -75,8 +75,20 @@ async function updateUser(req, res) {
     const { username } = req.body;
 
     try {
+        const result = await pool.query(
+            `UPDATE users SET username = $1 WHERE id = $2 RETURNING *`,
+            [username, id]
+        );
+
+        if (result.rows.length === 0) {
+            res.status(404).json({
+                message : 'User not found.'
+            });
+        }
+
         res.status(200).json({
             message : `User with id ${id} updated succesfully.`,
+            data : result.rows[0],
         });
     } catch(err) {
         console.error(err);
