@@ -27,6 +27,14 @@ describe('POST add user', () => {
 
         expect(result.statusCode).toBe(201);
     });
+
+    test('Error POST /users should return status code: 500', async () => {
+        const result = await request(app)
+            .post('/users/')
+            .send(undefined)
+
+        expect(result.statusCode).toBe(500);
+    });
 });
 
 describe('PUT update user', () => {
@@ -38,6 +46,14 @@ describe('PUT update user', () => {
             });
 
         expect(result.statusCode).toBe(200);
+    });
+
+    test('Error PUT /users/:id should return status code: 500', async () => {
+        const result = await request(app)
+            .put('/users/:id')
+            .send(undefined);
+
+        expect(result.statusCode).toBe(500);
     });
 });
 
