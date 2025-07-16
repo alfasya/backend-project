@@ -11,14 +11,16 @@ async function registerController(req, res) {
         await pool.query('BEGIN');
 
         await pool.query(
-            `INSERT INTO accoounts (username) VALUES ($1)`,
+            `INSERT INTO accounts (username) VALUES ($1)`,
             [username]
         );
 
-        const account_id = await pool.query(
+        const ret_id = await pool.query(
             `SELECT id FROM accounts WHERE username = $1`,
             [username]
         );
+
+        const account_id = ret_id.rows[0].id;
 
         await pool.query(
             `INSERT INTO encrypted_password (encrypted_password, account_id) VALUES ($1, $2)`,
@@ -33,9 +35,9 @@ async function registerController(req, res) {
 
     } catch(err) {
         await pool.query('ROLLBACK');
-        console.error(err);
+        console.error(`Registration`, err);
         res.status(500).json({
-            error : 'Internal server error.',
+            error : 'Internal server error.',   
         });
     }
 }
