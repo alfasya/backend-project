@@ -2,6 +2,6 @@ const { Router } = require('express');
 
 const registerRouter = Router();
 
-registerRouter.get('/register', registerController);
+registerRouter.get('/', registerController);
 
 module.exports = registerRouter;
