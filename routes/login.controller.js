@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const pool = require('../models/users.model');
 
@@ -32,8 +34,13 @@ async function loginController(req, res) {
             });
         }
 
+        const token = jwt.sign({
+            data : username,
+        }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
         res.status(200).json({
             message : `Welcome, ${username}.`,
+            token : token,
         });
     } catch(err) {
         console.error(err);
